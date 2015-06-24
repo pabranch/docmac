@@ -17,13 +17,15 @@ else
 fi
 
 # boot2docker
-brew install boot2docker
-
-# docker
-brew install docker
+if [ -z "`brew ls --versions docker`" ]; then
+  brew install boot2docker
+else
+  brew upgrade boot2docker
+fi
 
 # create boot2docker vm
 boot2docker init
+boot2docker shellinit
 
 # vm needs to be powered off in order to change these settings without VirtualBox blowing up
 boot2docker stop > /dev/null 2>&1
